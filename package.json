@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "express-blog-intro"
+    "url": "express-blog-api-crud"
   },
   "author": "Carlo Elvisi",
   "license": "ISC",
