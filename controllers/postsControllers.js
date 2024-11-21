@@ -29,14 +29,12 @@ function update(req, res) {
 // Delete - Elimina un post tramite ID
 function destroy(req, res) {
   const id = parseInt(req.params.id);
-  const postIndex = postsData.findIndex((post) => post.id === id);
+  const post = postsData.find((post) => post.id === id);
 
-  if (postIndex === -1) {
-    // Se il post con il tag fornito non viene trovato
-    return res.status(404).json({ error: "Non trovato" });
+  if (!post) {
+    res.status(404).json({ message: "Post not found" });
   }
-
-  // Rimuovi il post da postsData
+  const postIndex = postsData.indexOf(post);
   postsData.splice(postIndex, 1);
 
   console.log(postsData);
