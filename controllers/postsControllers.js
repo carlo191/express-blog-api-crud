@@ -20,7 +20,26 @@ function show(req, res) {
 
 // Store - Crea un nuovo post
 function store(req, res) {
-  res.json("Creazione di un nuovo post");
+  // Creiamo un nuovo id incrementando l'ultimo id presente
+  const newId = postsData[postsData.length - 1].id + 1;
+  // Creiamo un nuovo oggetto pizza
+  const newPost = {
+    id: newId,
+    titolo: req.body.titolo,
+
+    contenuto: req.body.contenuto,
+
+    immagine: req.body.immagine,
+    tags: req.body.tags,
+  };
+  // Aggiungiamo la nuova pizza al menu
+  postsData.push(newPost);
+  // controlliamo
+  console.log(postsData);
+
+  // Restituiamo lo status corretto e la pizza appena creata
+  res.status(201);
+  res.json(newPost);
 }
 // Update - Aggiorna un post esistente tramite ID
 function update(req, res) {
