@@ -43,8 +43,35 @@ function store(req, res) {
 }
 // Update - Aggiorna un post esistente tramite ID
 function update(req, res) {
-  res.json("Aggiornamento del post con ID: " + req.params.id);
+  /* Recupero l'id e lo trasformo in numero */
+  const id = parseInt(req.params.id);
+
+  /* Cerco il post tramite l'id */
+  const post = postsData.find((post) => post.id === id);
+
+  /* Faccio il controllo*/
+  if (!post) {
+    res.status(404);
+
+    return res.json({
+      error: "Not found",
+      message: "Post non trovato",
+    });
+  }
+
+  /* Aggiorno il post */
+  post.titolo = req.body.titolo;
+  post.contenuto = req.body.contenuto;
+  post.immagine = req.body.immagine;
+  post.tags = req.body.tags;
+
+  /* Stampo l'Array in console */
+  console.log(postsData);
+
+  /* Genero il post aggiornato */
+  res.json(post);
 }
+
 // Delete - Elimina un post tramite ID
 function destroy(req, res) {
   const id = parseInt(req.params.id);
