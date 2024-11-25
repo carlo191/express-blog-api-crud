@@ -13,6 +13,7 @@ app.post("/", (req, res) => {
 });
 // middlewears
 const errorsHandler = require("./middlewares/errorsHandler.js");
+const notFound = require("./middlewares/notFound.js");
 
 app.get("/", (req, res) => {
   res.send("Server del mio blog");
@@ -21,6 +22,7 @@ app.use("/posts", postsRouter);
 
 // error handlers
 app.use(errorsHandler);
+app.use(notFound);
 
 app.listen(port, () => {
   console.log(`In ascolto su port  ${port}`);

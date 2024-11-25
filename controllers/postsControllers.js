@@ -8,7 +8,6 @@ function index(req, res) {
 
 // Show - Recupera i dettagli di un post specifico per ID
 function show(req, res) {
-  lollo.getDate();
   const id = parseInt(req.params.id);
   const post = postsData.find((post) => post.id === id);
 
