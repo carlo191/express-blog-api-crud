@@ -11,11 +11,16 @@ app.post("/", (req, res) => {
   console.log(req.body);
   // ...
 });
+// middlewears
+const errorsHandler = require("./middlewares/errorsHandler.js");
 
 app.get("/", (req, res) => {
   res.send("Server del mio blog");
 });
 app.use("/posts", postsRouter);
+
+// error handlers
+app.use(errorsHandler);
 
 app.listen(port, () => {
   console.log(`In ascolto su port  ${port}`);

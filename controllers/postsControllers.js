@@ -8,14 +8,17 @@ function index(req, res) {
 
 // Show - Recupera i dettagli di un post specifico per ID
 function show(req, res) {
+  lollo.getDate();
   const id = parseInt(req.params.id);
   const post = postsData.find((post) => post.id === id);
 
-  if (post) {
-    res.json(post);
-  } else {
-    res.status(404).json({ message: "Post not found" });
+  if (!post) {
+    const err = new Error(`id post not found`);
+    err.code = 404;
+    throw err;
   }
+
+  res.json(post);
 }
 
 // Store - Crea un nuovo post
@@ -32,12 +35,12 @@ function store(req, res) {
     immagine: req.body.immagine,
     tags: req.body.tags,
   };
-  // Aggiungiamo la nuova pizza al menu
+  // Aggiungiamo il nuovo post
   postsData.push(newPost);
   // controlliamo
   console.log(postsData);
 
-  // Restituiamo lo status corretto e la pizza appena creata
+  // Restituiamo lo status corretto e il post appena creato
   res.status(201);
   res.json(newPost);
 }
@@ -51,12 +54,9 @@ function update(req, res) {
 
   /* Faccio il controllo*/
   if (!post) {
-    res.status(404);
-
-    return res.json({
-      error: "Not found",
-      message: "Post non trovato",
-    });
+    const err = new Error(`id post not found`);
+    err.code = 404;
+    throw err;
   }
 
   /* Aggiorno il post */
@@ -78,7 +78,9 @@ function destroy(req, res) {
   const post = postsData.find((post) => post.id === id);
 
   if (!post) {
-    res.status(404).json({ message: "Post not found" });
+    const err = new Error(`id post not found`);
+    err.code = 404;
+    throw err;
   }
   const postIndex = postsData.indexOf(post);
   postsData.splice(postIndex, 1);
